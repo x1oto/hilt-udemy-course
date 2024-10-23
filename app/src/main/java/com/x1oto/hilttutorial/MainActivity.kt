@@ -9,6 +9,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.x1oto.hilttutorial.database.DatabaseAdapter
 import com.x1oto.hilttutorial.database.DatabaseService
+import com.x1oto.hilttutorial.hilt.CallInterceptor
+import com.x1oto.hilttutorial.hilt.ResponseInterceptor
+import com.x1oto.hilttutorial.network.NetworkAdapter
+import com.x1oto.hilttutorial.network.NetworkService
 
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,7 +21,10 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
 
-    @Inject lateinit var databaseAdapter: DatabaseAdapter
+//    @Inject lateinit var databaseAdapter: DatabaseAdapter
+//    @Inject lateinit var networkAdapter: NetworkAdapter
+    @ResponseInterceptor
+    @Inject lateinit var networkService: NetworkService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +36,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        Log.d(TAG, "DatabaseAdapter: $databaseAdapter")
-        databaseAdapter.log("Hello Hilt!")
+//        Log.d(TAG, "DatabaseAdapter: $databaseAdapter")
+//        databaseAdapter.log("Hello Hilt!")
+//
+//        networkAdapter.log("Interface binding")
+
+        networkService.performNetworkCall()
 
     }
     @Inject
